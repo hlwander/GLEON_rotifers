@@ -62,9 +62,9 @@ ggplot(subset(zoop_df, siteID=="TOOK" & samplerType %in% c("Schindler-Patalas","
 ####################################################
 
 # read in all zoop data files
+setwd("/Users/Anna/Desktop/GLEON/NEONrotifers/GLEON_rotifers")
 files <- list.files(file.path(getwd(), "Data/Neon_zooplankton"), 
                     pattern = "zoo_taxonomyProcessed.*csv$", full.names = TRUE, recursive=TRUE)
-
 processed_df <- ldply(files, read.csv, header=TRUE)
 
 # need to figure out how to accurately calculate density from the columns in this data frame
@@ -88,3 +88,7 @@ mean(subset(processed_df, phylum=="Rotifera")$zooMeanLength, na.rm = TRUE) # mea
 #     how to link this information with the information in the other spreadsheets about what sampling method was employed (Schindler or tow net) - figure out what uid column corresponds to
 #     make sure that we should be using taxomonyProcessed vs. taxonomyRaw
 #     figure out how to calculate density and biomass from the info in the columns provided
+
+# Looking at which rows have width data
+sub <- subset(processed_df, zooWidth!= "NA")
+count(sub$scientificName)
